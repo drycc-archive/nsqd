@@ -5,10 +5,10 @@ DOCKER_HOST = $(shell echo $$DOCKER_HOST)
 BUILD_TAG ?= git-$(shell git rev-parse --short HEAD)
 SHORT_NAME ?= nsq
 DEPLOYMENT_NAME ?= nsqd
-DEIS_REGISTRY ?= ${DEV_REGISTRY}
-IMAGE_PREFIX ?= deis
+DRYCC_REGISTRY ?= ${DEV_REGISTRY}
+IMAGE_PREFIX ?= drycc
 
-TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash quay.io/deis/shell-dev
+TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash quay.io/drycc/go-dev:v0.22.0
 SHELL_SCRIPTS = $(wildcard rootfs/opt/nsq/bin/*)
 
 include versioning.mk
@@ -29,7 +29,7 @@ test-style: check-docker
 	${TEST_ENV_PREFIX} shellcheck $(SHELL_SCRIPTS)
 
 deploy: check-kubectl docker-build docker-push
-	kubectl --namespace=deis patch deployment deis-${DEPLOYMENT_NAME} \
+	kubectl --namespace=drycc patch deployment drycc-${DEPLOYMENT_NAME} \
 		--type='json' \
 		-p='[ \
 			{"op": "replace", "path": "/spec/strategy", "value":{"type":"Recreate"}}, \

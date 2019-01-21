@@ -1,7 +1,7 @@
 name: nsqd
-home: https://github.com/teamhephy/nsq
+home: https://github.com/drycc/nsq
 version: <Will be populated by the ci before publishing the chart>
 description: A kubernetes based docker image for running nsq daemon.
 maintainers:
-  - name: Team Hephy
-    email: team@teamhephy.com
+  - name: Team Drycc
+    email: team@drycc.com
