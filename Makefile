@@ -8,7 +8,7 @@ DEPLOYMENT_NAME ?= nsqd
 DRYCC_REGISTRY ?= ${DEV_REGISTRY}
 IMAGE_PREFIX ?= drycc
 
-TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash quay.io/drycc/go-dev:v0.22.0
+TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash drycc/go-dev
 SHELL_SCRIPTS = $(wildcard rootfs/opt/nsq/bin/*)
 
 include versioning.mk
