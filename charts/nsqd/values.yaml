@@ -4,3 +4,6 @@ docker_tag: "canary"
 docker_registry: ""
 # limits_cpu: "100m"
 # limits_memory: "50Mi"
+replicas: 1
+tcp_port: 4150
+http_port: 4151

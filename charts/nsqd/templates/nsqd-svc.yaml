@@ -6,12 +6,13 @@ metadata:
     heritage: drycc
     app: drycc-nsqd
 spec:
+  clusterIP: None
   ports:
-  - port: 4151
-    name: http
-    targetPort: http
-  - port: 4150
+  - port: {{ .Values.tcp_port }}
     name: transport
     targetPort: transport
+  - port: {{ .Values.http_port }}
+    name: http
+    targetPort: http
   selector:
     app: drycc-nsqd
