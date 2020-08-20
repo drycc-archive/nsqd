@@ -3,13 +3,13 @@ include includes.mk
 
 DOCKER_HOST = $(shell echo $$DOCKER_HOST)
 BUILD_TAG ?= git-$(shell git rev-parse --short HEAD)
-SHORT_NAME ?= nsq
+SHORT_NAME ?= nsqd
 DEPLOYMENT_NAME ?= nsqd
 DRYCC_REGISTRY ?= ${DEV_REGISTRY}
 IMAGE_PREFIX ?= drycc
 
 TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash drycc/go-dev
-SHELL_SCRIPTS = $(wildcard rootfs/opt/nsq/bin/*)
+SHELL_SCRIPTS = $(wildcard rootfs/opt/nsqd/bin/*)
 
 include versioning.mk
 

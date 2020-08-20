@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export CONFIG_PATH=${CONFIG_PATH:-/opt/nsqd/conf/nsqd.cfg}
+exec nsqd -config "${CONFIG_PATH}" "$@"

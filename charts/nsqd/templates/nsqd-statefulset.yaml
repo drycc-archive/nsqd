@@ -7,9 +7,8 @@ metadata:
   annotations:
     component.drycc.cc/version: {{ .Values.docker_tag }}
 spec:
+  serviceName: drycc-nsqd
   replicas: {{ .Values.replicas }}
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: drycc-nsqd
@@ -21,7 +20,7 @@ spec:
       serviceAccount: drycc-nsqd
       containers:
         - name: drycc-nsqd
-          image: {{.Values.docker_registry}}{{.Values.org}}/nsq:{{.Values.docker_tag}}
+          image: {{.Values.docker_registry}}{{.Values.org}}/nsqd:{{.Values.docker_tag}}
           imagePullPolicy: {{.Values.pull_policy}}
 {{- if or (.Values.limits_cpu) (.Values.limits_memory)}}
           resources:
@@ -33,25 +32,24 @@ spec:
               memory: {{.Values.limits_memory}}
 {{- end}}
 {{- end}}
-          command:
-          - /opt/nsq/bin/start-nsqd
+          command: ["/opt/nsqd/bin/start-nsqd", "-http-address", ":{{.Values.http_port}}", "-tcp-address", ":{{.Values.tcp_port}}"]
           ports:
-          - containerPort: 4151
+          - containerPort: {{.Values.http_port}}
             name: http
             protocol: TCP
-          - containerPort: 4150
+          - containerPort: {{.Values.tcp_port}}
             name: transport
             protocol: TCP
           livenessProbe:
             httpGet:
               path: /ping
-              port: 4151
+              port: {{.Values.http_port}}
             initialDelaySeconds: 5
             timeoutSeconds: 1
           readinessProbe:
             httpGet:
               path: /ping
-              port: 4151
+              port: {{.Values.http_port}}
             initialDelaySeconds: 5
             timeoutSeconds: 1
           env:
