@@ -1,6 +1,6 @@
 
 # Drycc NSQ
-[![Build Status](https://travis-ci.org/drycc/nsq.svg?branch=master)](https://travis-ci.org/drycc/nsq)
+[![Build Status](https://api.travis-ci.org/drycc/nsqd.svg)](https://travis-ci.org/github/drycc/nsqd)
 
 Drycc (pronounced DAY-iss) Workflow is an open source Platform as a Service (PaaS) that adds a developer-friendly layer to any [Kubernetes](http://kubernetes.io) cluster, making it easy to deploy and manage applications on your own servers.
 
