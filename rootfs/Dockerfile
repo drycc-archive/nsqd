@@ -3,8 +3,8 @@ FROM golang:latest AS build
 ARG NSQ_VERSION=v1.2.0
 RUN apt-get update \
   && apt-get install git \
-  && git clone --dept 1 -b $NSQ_VERSION https://github.com/nsqio/nsq /go/src/github.com/nsqio/nsq \
-  && cd /go/src/github.com/nsqio/nsq \
+  && git clone --dept 1 -b $NSQ_VERSION https://github.com/nsqio/nsq $GOPATH/src/github.com/nsqio/nsq \
+  && cd $GOPATH/src/github.com/nsqio/nsq \
   && export GO111MODULE=on \
   && ./test.sh \
   && CGO_ENABLED=0 make DESTDIR=/opt PREFIX=/nsq BLDFLAGS='-ldflags="-s -w"' install
