@@ -1,9 +1,9 @@
 FROM golang:latest AS build
-ARG NSQ_VERSION=v1.2.0
 
+ARG NSQ_VERSION=v1.2.0
 RUN apt-get update \
   && apt-get install git \
-  && git clone -b $NSQ_VERSION https://github.com/nsqio/nsq /go/src/github.com/nsqio/nsq \
+  && git clone --dept 1 -b $NSQ_VERSION https://github.com/nsqio/nsq /go/src/github.com/nsqio/nsq \
   && cd /go/src/github.com/nsqio/nsq \
   && export GO111MODULE=on \
   && ./test.sh \
