@@ -6,7 +6,6 @@ RUN apt-get update \
   && git clone --dept 1 -b $NSQ_VERSION https://github.com/nsqio/nsq $GOPATH/src/github.com/nsqio/nsq \
   && cd $GOPATH/src/github.com/nsqio/nsq \
   && export GO111MODULE=on \
-  && ./test.sh \
   && CGO_ENABLED=0 make DESTDIR=/opt PREFIX=/nsq BLDFLAGS='-ldflags="-s -w"' install
 
 

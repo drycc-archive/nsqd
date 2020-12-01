@@ -7,6 +7,7 @@ SHORT_NAME ?= nsqd
 DEPLOYMENT_NAME ?= nsqd
 DRYCC_REGISTRY ?= ${DEV_REGISTRY}
 IMAGE_PREFIX ?= drycc
+PLATFORM ?= linux/amd64,linux/arm64
 
 TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash drycc/go-dev
 SHELL_SCRIPTS = $(wildcard rootfs/opt/nsqd/bin/*)
@@ -19,6 +20,9 @@ push: docker-push
 docker-build:
 	docker build ${DOCKER_BUILD_FLAGS} -t ${IMAGE} rootfs
 	docker tag ${IMAGE} ${MUTABLE_IMAGE}
+
+docker-buildx:
+	docker buildx build --platform ${PLATFORM} -t ${IMAGE} rootfs --push
 
 clean: check-docker
 	docker rmi $(IMAGE)
