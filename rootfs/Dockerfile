@@ -1,4 +1,4 @@
-FROM golang:latest AS build
+FROM docker.io/library/golang:latest AS build
 
 ARG NSQ_VERSION=v1.2.0
 RUN apt-get update \
@@ -9,7 +9,7 @@ RUN apt-get update \
   && CGO_ENABLED=0 make DESTDIR=/opt PREFIX=/nsq BLDFLAGS='-ldflags="-s -w"' install
 
 
-FROM alpine:latest
+FROM docker.io/library/alpine:latest
 
 # set up nsswitch.conf for Go's "netgo" implementation
 # https://github.com/golang/go/issues/35305
@@ -17,15 +17,14 @@ RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 COPY --from=build /opt/nsq/bin/ /bin/
 
-RUN mkdir -p /opt/nsqd/data \
+RUN apk add --update jq \
+  &&  mkdir -p /opt/nsqd/data \
   && adduser \
      -s /bin/sh \
      -D  \
      -h /opt/nsqd \
      nsqd \
      nsqd
-
-ADD https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 /usr/bin/jq
 
 COPY . /
 RUN chown -R nsqd:nsqd /opt/nsqd
