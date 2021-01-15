@@ -8,10 +8,10 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - port: {{ .Values.tcp_port }}
+  - port: 4150
     name: transport
     targetPort: transport
-  - port: {{ .Values.http_port }}
+  - port: 4151
     name: http
     targetPort: http
   selector:
