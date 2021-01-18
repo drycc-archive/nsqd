@@ -32,24 +32,24 @@ spec:
               memory: {{.Values.limits_memory}}
 {{- end}}
 {{- end}}
-          command: ["/opt/nsqd/bin/start-nsqd", "-http-address", ":{{.Values.http_port}}", "-tcp-address", ":{{.Values.tcp_port}}"]
+          command: ["/opt/nsqd/bin/start-nsqd", "-http-address", ":4151", "-tcp-address", ":4150"]
           ports:
-          - containerPort: {{.Values.http_port}}
+          - containerPort: 4151
             name: http
             protocol: TCP
-          - containerPort: {{.Values.tcp_port}}
+          - containerPort: 4150
             name: transport
             protocol: TCP
           livenessProbe:
             httpGet:
               path: /ping
-              port: {{.Values.http_port}}
+              port: 4151
             initialDelaySeconds: 5
             timeoutSeconds: 1
           readinessProbe:
             httpGet:
               path: /ping
-              port: {{.Values.http_port}}
+              port: 4151
             initialDelaySeconds: 5
             timeoutSeconds: 1
           env:
