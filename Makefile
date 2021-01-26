@@ -9,7 +9,7 @@ DRYCC_REGISTRY ?= ${DEV_REGISTRY}
 IMAGE_PREFIX ?= drycc
 PLATFORM ?= linux/amd64,linux/arm64
 
-TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash drycc/go-dev
+TEST_ENV_PREFIX := docker run --rm -v ${CURDIR}:/bash -w /bash ${DEV_REGISTRY}/drycc/go-dev
 SHELL_SCRIPTS = $(wildcard rootfs/opt/nsqd/bin/*)
 
 include versioning.mk
