@@ -1,6 +1,6 @@
 name: nsqd
 home: https://github.com/drycc/nsqd
-version: <Will be populated by the ci before publishing the chart>
+version: v1.0.0
 description: A kubernetes based docker image for running nsq daemon.
 maintainers:
   - name: Team Drycc
